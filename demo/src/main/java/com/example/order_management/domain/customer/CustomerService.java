@@ -1,4 +1,4 @@
-package com.example.order_management.business;
+package com.example.order_management.domain.customer;
 
 import com.example.order_management.domain.customer.Customer;
 import com.example.order_management.domain.customer.CustomerRepository;

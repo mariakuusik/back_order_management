@@ -1,7 +1,6 @@
-package com.example.order_management.business;
+package com.example.order_management.business.customer;
 
 
-import com.example.order_management.domain.customer.CustomerRequest;
 import com.example.order_management.infrastructure.error.ApiError;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

@@ -1,4 +1,4 @@
-package com.example.order_management.domain.customer;
+package com.example.order_management.domain;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -7,22 +7,20 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
- * DTO for {@link Customer}
+ * DTO for {@link Product}
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomerRequest implements Serializable {
-    @NotNull
-    private Integer registrationCode;
+public class ProductRequest implements Serializable {
     @NotNull
     @Size(max = 255)
-    private String fullName;
+    private String productName;
     @NotNull
-    @Size(max = 255)
-    private String email;
+    private Integer skuCode;
     @NotNull
-    private Integer telephone;
+    private BigDecimal unitPrice;
 }

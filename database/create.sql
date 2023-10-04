@@ -48,7 +48,7 @@ CREATE TABLE product (
                          id serial  NOT NULL,
                          name varchar(255)  NOT NULL,
                          sku_code int  NOT NULL,
-                         unit_price money  NOT NULL,
+                         unit_price money NOT NULL,
                          CONSTRAINT product_pk PRIMARY KEY (id)
 );
 
