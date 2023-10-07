@@ -1,10 +1,8 @@
 package com.example.order_management.business.product;
 
-import com.example.order_management.domain.Product;
-import com.example.order_management.domain.ProductMapper;
-import com.example.order_management.domain.ProductRepository;
-import com.example.order_management.domain.ProductRequest;
-import com.example.order_management.validation.ValidationService;
+import com.example.order_management.domain.product.Product;
+import com.example.order_management.domain.product.ProductMapper;
+import com.example.order_management.domain.product.ProductService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 

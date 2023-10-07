@@ -1,6 +1,5 @@
 package com.example.order_management.business.product;
 
-import com.example.order_management.domain.ProductRequest;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

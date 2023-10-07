@@ -1,4 +1,4 @@
-package com.example.order_management.domain;
+package com.example.order_management.domain.product;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;

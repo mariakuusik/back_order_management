@@ -1,5 +1,6 @@
-package com.example.order_management.domain;
+package com.example.order_management.business.product;
 
+import com.example.order_management.domain.product.Product;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
