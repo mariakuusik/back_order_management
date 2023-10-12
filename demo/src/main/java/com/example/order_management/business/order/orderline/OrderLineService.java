@@ -11,25 +11,19 @@ import java.util.List;
 
 @Service
 public class OrderLineService {
-
-
     @Resource
     private OrderLineRepository orderLineRepository;
-
     @Resource
     private  OrderOrderLineRepository orderOrderLineRepository;
-
-
 
     public void createOrderLine(OrderLine orderLine) {
         orderLineRepository.save(orderLine);
     }
-
     public List<OrderOrderLine> getOrderLinesBy(Integer orderId) {
         List<OrderOrderLine> orderLines = orderOrderLineRepository.findOrderLinesBy(orderId);
         return orderLines;
     }
-
-
-
+    public List<OrderLine> findOrderLinesBy(Integer productId) {
+        return orderLineRepository.findOrderLinesBy(productId);
+    }
 }

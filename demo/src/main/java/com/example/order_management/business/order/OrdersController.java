@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-public class OrderController {
+public class OrdersController {
     @Resource
     private OrdersService ordersService;
 
@@ -19,10 +19,16 @@ public class OrderController {
     public void createNewOrder(@RequestBody OrderDto orderDto){
         ordersService.createNewOrder(orderDto);
     }
-
-    @GetMapping("/orders")
-    @Operation(summary = "Finds all orders by date")
+    @GetMapping("/orders/date")
+    @Operation(summary = "Finds all orders by date",
+    description = "Returns customerId, OrderId, OrderLines (contains productId and productQuantity)")
     public List<CustomerOrderDto> findAllOrders(@RequestParam LocalDate date) {
         return ordersService.findAllOrdersByDate(date);
     }
+    @GetMapping("/orders/product")
+    @Operation(summary = "Finds orders by product")
+    public List<CustomerOrderDto> FindOrdersByProduct(@RequestParam Integer productId) {
+        return ordersService.findOrdersByProduct(productId);
+    }
+
 }

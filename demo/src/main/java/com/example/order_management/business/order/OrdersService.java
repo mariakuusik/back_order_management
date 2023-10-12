@@ -4,7 +4,6 @@ import com.example.order_management.business.order.orderline.OrderLineDto;
 import com.example.order_management.business.order.orderline.OrderLineService;
 import com.example.order_management.domain.*;
 import com.example.order_management.domain.customer.Customer;
-import com.example.order_management.domain.customer.CustomerMapper;
 import com.example.order_management.domain.customer.CustomerService;
 import com.example.order_management.domain.order.Order;
 import com.example.order_management.domain.order.OrderMapper;
@@ -33,7 +32,9 @@ public class OrdersService {
     @Resource
     private CustomerOrderMapper customerOrderMapper;
     @Resource
-    OrderRepository orderRepository;
+    private OrderMapper orderMapper;
+    @Resource
+    private OrderRepository orderRepository;
 
     public void createNewOrder(OrderDto orderDto) {
         Order order = new Order();
@@ -91,5 +92,32 @@ public class OrdersService {
             orderLineDtos.add(orderLineDto);
         }
         return orderLineDtos;
+    }
+
+    //TODO: Recheck with real data if this works:
+    public List<CustomerOrderDto> findOrdersByProduct(Integer productId) {
+        List<OrderLine> orderLines = orderLineService.findOrderLinesBy(productId);
+        List<CustomerOrderDto> customerOrderDtos = new ArrayList<>();
+
+        for(OrderLine orderLine : orderLines){
+            List<Order> orders = orderService.findOrdersBy(orderLine.getId());
+
+            for (Order order : orders) {
+                CustomerOrder customerOrder = customerOrderService.getCustomerOrderId(order.getId());
+                if(customerOrder!=null){
+                    Customer customer = customerOrder.getCustomer();
+                    CustomerOrderDto customerOrderDto = customerOrderMapper.toCustomerOrderDto(customerOrder);
+                    customerOrderDto.setOrderId(order.getId());
+                    customerOrderDto.setCustomerId(customer.getId());
+
+                    List<OrderLine> orderLineList = new ArrayList<>();
+                    orderLineList.add(orderLine);
+                    List<OrderLineDto> orderLineDtos = orderLineMapper.toOrderLineDtos(orderLines);
+                    customerOrderDto.setOrderLines(orderLineDtos);
+                    customerOrderDtos.add(customerOrderDto);
+                }
+            }
+        }
+    return customerOrderDtos;
     }
 }

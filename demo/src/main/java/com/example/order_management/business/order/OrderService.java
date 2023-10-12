@@ -1,7 +1,5 @@
 package com.example.order_management.business.order;
 
-import com.example.order_management.domain.customer.Customer;
-import com.example.order_management.domain.customer.CustomerRepository;
 import com.example.order_management.domain.order.Order;
 import com.example.order_management.domain.order.OrderRepository;
 import jakarta.annotation.Resource;
@@ -18,5 +16,8 @@ public class OrderService {
 
     public List<Order> findOrders(LocalDate date) {
         return orderRepository.findOrdersBy(date);
+    }
+    public List<Order> findOrdersBy(Integer orderLineId) {
+        return orderRepository.findOrdersByOrderLineId(orderLineId);
     }
 }
