@@ -21,27 +21,19 @@ import java.util.Optional;
 @Service
 public class OrdersService {
     @Resource
-    private OrderLineMapper orderLineMapper;
-    @Resource
-    private OrderLineService orderLineService;
-    @Resource
-    OrderRepository orderRepository;
-    @Resource
     CustomerService customerService;
-    @Resource
-    private CustomerOrderService customerOrderService;
     @Resource
     private OrderService orderService;
     @Resource
-    private OrderMapper orderMapper;
-
+    private OrderLineService orderLineService;
+    @Resource
+    private CustomerOrderService customerOrderService;
+    @Resource
+    private OrderLineMapper orderLineMapper;
     @Resource
     private CustomerOrderMapper customerOrderMapper;
-
     @Resource
-    private CustomerMapper customerMapper;
-
-
+    OrderRepository orderRepository;
 
     public void createNewOrder(OrderDto orderDto) {
         Order order = new Order();
@@ -55,14 +47,12 @@ public class OrdersService {
             throw new RuntimeException("Customer doesn't exist");
         }
     }
-
     private void createNewOrder(Optional<Customer> customerOptional, Order order) {
         CustomerOrder customerOrder = new CustomerOrder();
         customerOrder.setCustomer(customerOptional.get());
         customerOrder.setOrder(order);
         customerOrderService.saveCustomerOrder(customerOrder);
     }
-
     private void createOrderLines(OrderDto orderDto, Order order) {
         for (OrderLineDto orderLineDto : orderDto.getOrderLines()) {
             OrderLine orderLine = orderLineMapper.toOrderLine(orderLineDto);
@@ -70,33 +60,36 @@ public class OrdersService {
             orderLineService.createOrderLine(orderLine);
         }
     }
-
-    //vaja on LIST orders, mille sees on: customerId ja OrderId ja
-        //LIST orderLines, mille sees on: productId ja quantity
-
     public List<CustomerOrderDto> findAllOrdersByDate(LocalDate submissionDate) {
-        //otsin üles kuupäeva järgi kõik tellimused
         List<Order> orders = orderService.findOrders(submissionDate);
-        List <CustomerOrderDto> customerOrderDtos = new ArrayList<>();
-        //käin tellimuste listi loobiga läbi, et saada ligi igale individuaalsele tellimusele
+        List<CustomerOrderDto> customerOrderDtos = new ArrayList<>();
         for (Order order : orders) {
-            //otsin orderId järgi üles customerId
-            Customer customer = orderService.getCustomerId(order.getId());
-            //kuidas customer panna CustomerOrderDto külge? Kas CustomerMapperiga või CustomerOrderMapperiga?
-            CustomerOrderDto customerOrderDto = customerOrderMapper.toCustomerOrderDto(customer);
-            customerOrderDto.setOrderId(order.getId());
-            customerOrderDto.setCustomerId(customer.getId());
-            //otsin orderId järgi üles orderLines
-            List<OrderLine> orderLines = orderLineService.getOrderLinesBy(order.getId());
-            List<OrderLineDto> orderLineDtos = new ArrayList<>();
-            //käin OrderLines listi läbi, et saada ligi igale individuaalsele orderLines'ile
-            for (OrderLine orderLine : orderLines) {
-                OrderLineDto orderLineDto = orderLineMapper.toOrderLineDto(orderLine);
-                orderLineDtos.add(orderLineDto);
+            CustomerOrder customerOrder = customerOrderService.getCustomerOrderId(order.getId());
+            if (customerOrder != null) {
+                CustomerOrderDto customerOrderDto = getCustomerOrderDto(order, customerOrder);
+                List<OrderLineDto> orderLineDtos = getOrderLineDtos(order);
+                customerOrderDto.setOrderLines(orderLineDtos);
+                customerOrderDtos.add(customerOrderDto);
+            } else {
+                throw new RuntimeException("Order doesn't exist");
             }
-            customerOrderDto.setOrderLines(orderLineDtos);
-            customerOrderDtos.add(customerOrderDto);
         }
         return customerOrderDtos;
+    }
+    private CustomerOrderDto getCustomerOrderDto(Order order, CustomerOrder customerOrder) {
+        Customer customer = customerOrder.getCustomer();
+        CustomerOrderDto customerOrderDto = customerOrderMapper.toCustomerOrderDto(customerOrder);
+        customerOrderDto.setOrderId(order.getId());
+        customerOrderDto.setCustomerId(customer.getId());
+        return customerOrderDto;
+    }
+    private List<OrderLineDto> getOrderLineDtos(Order order) {
+        List<OrderOrderLine> orderLines = orderLineService.getOrderLinesBy(order.getId());
+        List<OrderLineDto> orderLineDtos = new ArrayList<>();
+        for (OrderOrderLine orderLine : orderLines) {
+            OrderLineDto orderLineDto = orderLineMapper.toOrderLineDto(orderLine.getOrderLine());
+            orderLineDtos.add(orderLineDto);
+        }
+        return orderLineDtos;
     }
 }

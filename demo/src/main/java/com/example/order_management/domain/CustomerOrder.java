@@ -26,5 +26,4 @@ public class CustomerOrder {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
-
 }

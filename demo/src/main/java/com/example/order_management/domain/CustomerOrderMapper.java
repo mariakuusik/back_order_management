@@ -4,10 +4,8 @@ import org.mapstruct.*;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
 public interface CustomerOrderMapper {
-    CustomerOrder toEntity(CustomerOrderDto customerOrderDto);
+    @Mapping(source = "order.id", target = "orderId")
+    @Mapping(source = "customer.id", target = "customerId")
+    CustomerOrderDto toCustomerOrderDto(CustomerOrder customerOrder);
 
-    CustomerOrderDto toDto(CustomerOrder customerOrder);
-
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    CustomerOrder partialUpdate(CustomerOrderDto customerOrderDto, @MappingTarget CustomerOrder customerOrder);
 }

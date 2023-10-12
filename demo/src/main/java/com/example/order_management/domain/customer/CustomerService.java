@@ -21,9 +21,7 @@ public class CustomerService {
     public void validateEmailIsAvailable(String email) {
         boolean customerExists = customerRepository.customerExistsBy(email);
         ValidationService.validateEmailIsAvailable(customerExists);
-
     }
-
     public Optional<Customer> findCustomerBy(Integer customerId) {
         return customerRepository.findById(customerId);
     }

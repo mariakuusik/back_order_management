@@ -12,6 +12,7 @@ import lombok.Setter;
 @Table(name = "order_order_line")
 public class OrderOrderLine {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 

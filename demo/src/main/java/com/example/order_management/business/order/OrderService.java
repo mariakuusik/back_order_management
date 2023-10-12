@@ -16,15 +16,7 @@ public class OrderService {
     @Resource
     private OrderRepository orderRepository;
 
-    @Resource
-    private CustomerRepository customerRepository;
-
-
     public List<Order> findOrders(LocalDate date) {
         return orderRepository.findOrdersBy(date);
-    }
-
-    public Customer getCustomerId(Integer orderId) {
-        return customerRepository.findCustomerBy(orderId);
     }
 }

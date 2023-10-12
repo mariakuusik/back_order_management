@@ -13,10 +13,9 @@ public interface OrderLineMapper {
     @Mapping(source = "productId", target = "product.id")
     OrderLine toOrderLine(OrderLineDto orderLineDto);
 
-    @Mapping(source = "id", target = "productId")
+    @Mapping(source = "product.id", target = "productId")
     @Mapping(source = "quantity", target = "productQuantity")
     OrderLineDto toOrderLineDto(OrderLine orderLine);
 
-    List<OrderLineDto> orderLineDtos = new ArrayList<>();
 }
 
