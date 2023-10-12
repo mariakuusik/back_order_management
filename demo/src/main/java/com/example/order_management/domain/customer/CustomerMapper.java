@@ -7,4 +7,6 @@ import org.mapstruct.*;
 public interface CustomerMapper {
 
     Customer toCustomer(CustomerRequest customerRequest);
+
+
 }

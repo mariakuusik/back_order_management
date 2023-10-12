@@ -1,6 +1,6 @@
 package com.example.order_management.domain;
 
-import com.example.order_management.domain.Order;
+import com.example.order_management.domain.order.Order;
 import com.example.order_management.domain.customer.Customer;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;

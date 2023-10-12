@@ -1,5 +1,6 @@
-package com.example.order_management.domain;
+package com.example.order_management.domain.order;
 
+import com.example.order_management.domain.OrderLine;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;

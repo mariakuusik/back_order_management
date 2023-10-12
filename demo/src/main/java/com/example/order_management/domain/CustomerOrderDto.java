@@ -1,5 +1,6 @@
 package com.example.order_management.domain;
 
+import com.example.order_management.business.order.orderline.OrderLineDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,8 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderRequest implements Serializable {
+public class CustomerOrderDto implements Serializable {
     private Integer customerId;
+    private Integer orderId;
     private List<OrderLineDto> orderLines;
 }
