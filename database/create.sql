@@ -8,7 +8,7 @@ CREATE TABLE customer (
                           registration_code int  NOT NULL,
                           full_name varchar(255)  NOT NULL,
                           email varchar(255) UNIQUE NOT NULL,
-                          telephone int  NOT NULL,
+                          telephone bigint  NOT NULL,
                           CONSTRAINT customer_pk PRIMARY KEY (id)
 );
 

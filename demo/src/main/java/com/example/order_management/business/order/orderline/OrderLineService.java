@@ -19,11 +19,11 @@ public class OrderLineService {
     public void createOrderLine(OrderLine orderLine) {
         orderLineRepository.save(orderLine);
     }
-    public List<OrderOrderLine> getOrderLinesBy(Integer orderId) {
+    public List<OrderOrderLine> findOrderLinesByOrder(Integer orderId) {
         List<OrderOrderLine> orderLines = orderOrderLineRepository.findOrderLinesBy(orderId);
         return orderLines;
     }
-    public List<OrderLine> findOrderLinesBy(Integer productId) {
+    public List<OrderLine> findOrderLinesByProduct(Integer productId) {
         return orderLineRepository.findOrderLinesBy(productId);
     }
 }

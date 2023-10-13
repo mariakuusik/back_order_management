@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface OrderOrderLineRepository extends JpaRepository<OrderOrderLine, Integer> {
     @Query("select o from OrderOrderLine o where o.order.id = ?1")
-    List<OrderOrderLine> findOrderLinesBy(Integer id);
+    List<OrderOrderLine> findOrderLinesBy(Integer orderId);
 
 }

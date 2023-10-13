@@ -27,8 +27,13 @@ public class OrdersController {
     }
     @GetMapping("/orders/product")
     @Operation(summary = "Finds orders by product")
-    public List<CustomerOrderDto> FindOrdersByProduct(@RequestParam Integer productId) {
+    public List<CustomerOrderDto> findOrdersByProduct(@RequestParam Integer productId) {
         return ordersService.findOrdersByProduct(productId);
+    }
+    @GetMapping("/orders/customer")
+    @Operation(summary = "Finds orders by customer")
+    public void findOrdersByCustomer(@RequestParam Integer customerId) {
+
     }
 
 }

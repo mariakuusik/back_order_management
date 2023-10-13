@@ -6,7 +6,6 @@ import com.example.order_management.domain.*;
 import com.example.order_management.domain.customer.Customer;
 import com.example.order_management.domain.customer.CustomerService;
 import com.example.order_management.domain.order.Order;
-import com.example.order_management.domain.order.OrderMapper;
 import com.example.order_management.domain.order.OrderRepository;
 import com.example.order_management.domain.order.orderline.OrderLineMapper;
 import jakarta.annotation.Resource;
@@ -31,8 +30,6 @@ public class OrdersService {
     private OrderLineMapper orderLineMapper;
     @Resource
     private CustomerOrderMapper customerOrderMapper;
-    @Resource
-    private OrderMapper orderMapper;
     @Resource
     private OrderRepository orderRepository;
 
@@ -77,15 +74,9 @@ public class OrdersService {
         }
         return customerOrderDtos;
     }
-    private CustomerOrderDto getCustomerOrderDto(Order order, CustomerOrder customerOrder) {
-        Customer customer = customerOrder.getCustomer();
-        CustomerOrderDto customerOrderDto = customerOrderMapper.toCustomerOrderDto(customerOrder);
-        customerOrderDto.setOrderId(order.getId());
-        customerOrderDto.setCustomerId(customer.getId());
-        return customerOrderDto;
-    }
+
     private List<OrderLineDto> getOrderLineDtos(Order order) {
-        List<OrderOrderLine> orderLines = orderLineService.getOrderLinesBy(order.getId());
+        List<OrderOrderLine> orderLines = orderLineService.findOrderLinesByOrder(order.getId());
         List<OrderLineDto> orderLineDtos = new ArrayList<>();
         for (OrderOrderLine orderLine : orderLines) {
             OrderLineDto orderLineDto = orderLineMapper.toOrderLineDto(orderLine.getOrderLine());
@@ -94,30 +85,34 @@ public class OrdersService {
         return orderLineDtos;
     }
 
-    //TODO: Recheck with real data if this works:
     public List<CustomerOrderDto> findOrdersByProduct(Integer productId) {
-        List<OrderLine> orderLines = orderLineService.findOrderLinesBy(productId);
+        List<OrderLine> orderLines = orderLineService.findOrderLinesByProduct(productId);
         List<CustomerOrderDto> customerOrderDtos = new ArrayList<>();
-
         for(OrderLine orderLine : orderLines){
             List<Order> orders = orderService.findOrdersBy(orderLine.getId());
-
             for (Order order : orders) {
                 CustomerOrder customerOrder = customerOrderService.getCustomerOrderId(order.getId());
                 if(customerOrder!=null){
-                    Customer customer = customerOrder.getCustomer();
-                    CustomerOrderDto customerOrderDto = customerOrderMapper.toCustomerOrderDto(customerOrder);
-                    customerOrderDto.setOrderId(order.getId());
-                    customerOrderDto.setCustomerId(customer.getId());
-
-                    List<OrderLine> orderLineList = new ArrayList<>();
-                    orderLineList.add(orderLine);
-                    List<OrderLineDto> orderLineDtos = orderLineMapper.toOrderLineDtos(orderLines);
+                    CustomerOrderDto customerOrderDto = getCustomerOrderDto(order, customerOrder);
+                    List<OrderLineDto> orderLineDtos = getOrderLineDtos(orderLine, orderLines);
                     customerOrderDto.setOrderLines(orderLineDtos);
                     customerOrderDtos.add(customerOrderDto);
                 }
             }
         }
     return customerOrderDtos;
+    }
+    private List<OrderLineDto> getOrderLineDtos(OrderLine orderLine, List<OrderLine> orderLines) {
+        List<OrderLine> orderLinesForOrder = new ArrayList<>();
+        orderLinesForOrder.add(orderLine);
+        List<OrderLineDto> orderLineDtos = orderLineMapper.toOrderLineDtos(orderLines);
+        return orderLineDtos;
+    }
+    private CustomerOrderDto getCustomerOrderDto(Order order, CustomerOrder customerOrder) {
+        Customer customer = customerOrder.getCustomer();
+        CustomerOrderDto customerOrderDto = customerOrderMapper.toCustomerOrderDto(customerOrder);
+        customerOrderDto.setOrderId(order.getId());
+        customerOrderDto.setCustomerId(customer.getId());
+        return customerOrderDto;
     }
 }
