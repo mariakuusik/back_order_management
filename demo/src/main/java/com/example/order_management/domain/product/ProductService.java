@@ -1,10 +1,10 @@
 package com.example.order_management.domain.product;
 
-import com.example.order_management.domain.product.Product;
-import com.example.order_management.domain.product.ProductRepository;
 import com.example.order_management.validation.ValidationService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 
 @Service
@@ -22,7 +22,6 @@ public class ProductService {
         ValidationService.validateSkuCodeIsAvailable(productExists);
     }
 
-    public Product findProductBy(Integer skuCode) {
-        return productRepository.findBySkuCode(skuCode);
-    }
+
+
 }

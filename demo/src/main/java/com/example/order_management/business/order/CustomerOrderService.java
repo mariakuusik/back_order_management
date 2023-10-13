@@ -5,6 +5,8 @@ import com.example.order_management.domain.CustomerOrderRepository;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CustomerOrderService {
     @Resource
@@ -13,7 +15,11 @@ public class CustomerOrderService {
     public void saveCustomerOrder(CustomerOrder customerOrder) {
         customerOrderRepository.save(customerOrder);
     }
-    public CustomerOrder getCustomerOrderId(Integer id) {
-        return customerOrderRepository.findCustomerOrderBy(id);
+    public CustomerOrder getCustomerOrderId(Integer orderId) {
+        return customerOrderRepository.findCustomerOrderBy(orderId);
+    }
+
+    public List<CustomerOrder> findOrders(Integer customerId) {
+        return customerOrderRepository.findCustomerOrdersBy(customerId);
     }
 }

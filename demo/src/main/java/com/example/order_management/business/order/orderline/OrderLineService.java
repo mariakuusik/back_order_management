@@ -8,6 +8,7 @@ import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrderLineService {
@@ -25,5 +26,13 @@ public class OrderLineService {
     }
     public List<OrderLine> findOrderLinesByProduct(Integer productId) {
         return orderLineRepository.findOrderLinesBy(productId);
+    }
+
+    public Optional<OrderLine> findOrderLine(Integer orderLineId) {
+        return orderLineRepository.findById(orderLineId);
+    }
+
+    public void updateOrderLine(OrderLine orderLine) {
+        orderLineRepository.save(orderLine);
     }
 }
