@@ -9,7 +9,6 @@ import java.util.Optional;
 
 @Service
 public class ProductService {
-
     @Resource
     ProductRepository productRepository;
 
@@ -21,7 +20,4 @@ public class ProductService {
         boolean productExists = productRepository.productExistsBy(skuCode);
         ValidationService.validateSkuCodeIsAvailable(productExists);
     }
-
-
-
 }

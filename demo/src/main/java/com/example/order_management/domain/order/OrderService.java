@@ -1,7 +1,5 @@
-package com.example.order_management.business.order;
+package com.example.order_management.domain.order;
 
-import com.example.order_management.domain.order.Order;
-import com.example.order_management.domain.order.OrderRepository;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +12,11 @@ public class OrderService {
     @Resource
     private OrderRepository orderRepository;
 
-    public List<Order> findOrders(LocalDate date) {
+    public List<Order> findOrdersByDate(LocalDate date) {
         return orderRepository.findOrdersBy(date);
     }
-    public List<Order> findOrdersBy(Integer orderLineId) {
+
+    public List<Order> findOrdersByOrderLine(Integer orderLineId) {
         return orderRepository.findOrdersByOrderLineId(orderLineId);
     }
 }

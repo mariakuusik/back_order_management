@@ -1,6 +1,7 @@
 package com.example.order_management.business.customer;
 
 
+import com.example.order_management.business.customer.dto.CustomerRequest;
 import com.example.order_management.infrastructure.error.ApiError;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class CustomersController {
-
     @Resource
     private CustomersService customersService;
 
@@ -22,9 +22,7 @@ public class CustomersController {
             @ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "403", description = "This email is already in use",
                     content = @Content(schema = @Schema(implementation = ApiError.class)))})
-    private void AddCustomer(@RequestBody CustomerRequest customerRequest){
+    public void addCustomer(@RequestBody CustomerRequest customerRequest) {
         customersService.addCustomer(customerRequest);
     }
-
-
 }

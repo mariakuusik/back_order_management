@@ -1,5 +1,6 @@
-package com.example.order_management.domain;
+package com.example.order_management.domain.order;
 
+import com.example.order_management.domain.order.CustomerOrder;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

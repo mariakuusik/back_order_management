@@ -1,8 +1,7 @@
 package com.example.order_management.domain.order.orderline;
 
-import com.example.order_management.domain.OrderLine;
-import com.example.order_management.business.order.orderline.OrderLineDto;
-import com.example.order_management.domain.UpdateProductQuantityRequest;
+import com.example.order_management.business.order.orderline.dto.OrderLineDto;
+import com.example.order_management.business.product.dto.UpdateProductQuantityRequest;
 import org.mapstruct.*;
 
 import java.util.List;
@@ -18,11 +17,5 @@ public interface OrderLineMapper {
     OrderLineDto toOrderLineDto(OrderLine orderLine);
 
     List<OrderLineDto> toOrderLineDtos(List<OrderLine> orderLines);
-
-    @Mapping(source = "productId", target = "product.id")
-    @Mapping(source = "orderLineId", target = "id")
-    @Mapping(source = "quantity", target = "quantity")
-    OrderLine toOrderLine(UpdateProductQuantityRequest updateProductQuantityRequest);
-
 }
 

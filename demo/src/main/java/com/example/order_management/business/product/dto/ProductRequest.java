@@ -1,4 +1,4 @@
-package com.example.order_management.business.product;
+package com.example.order_management.business.product.dto;
 
 import com.example.order_management.domain.product.Product;
 import jakarta.validation.constraints.NotNull;

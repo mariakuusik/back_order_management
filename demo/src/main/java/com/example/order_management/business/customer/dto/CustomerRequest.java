@@ -1,4 +1,4 @@
-package com.example.order_management.business.customer;
+package com.example.order_management.business.customer.dto;
 
 import com.example.order_management.domain.customer.Customer;
 import jakarta.validation.constraints.NotNull;

@@ -1,6 +1,6 @@
-package com.example.order_management.business.order.orderline;
+package com.example.order_management.business.order.orderline.dto;
 
-import com.example.order_management.domain.OrderLine;
+import com.example.order_management.domain.order.orderline.OrderLine;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;

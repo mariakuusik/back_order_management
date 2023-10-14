@@ -1,7 +1,7 @@
 package com.example.order_management.business.order;
 
-import com.example.order_management.domain.CustomerOrder;
-import com.example.order_management.domain.CustomerOrderRepository;
+import com.example.order_management.domain.order.CustomerOrder;
+import com.example.order_management.domain.order.CustomerOrderRepository;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +15,7 @@ public class CustomerOrderService {
     public void saveCustomerOrder(CustomerOrder customerOrder) {
         customerOrderRepository.save(customerOrder);
     }
+
     public CustomerOrder getCustomerOrderId(Integer orderId) {
         return customerOrderRepository.findCustomerOrderBy(orderId);
     }

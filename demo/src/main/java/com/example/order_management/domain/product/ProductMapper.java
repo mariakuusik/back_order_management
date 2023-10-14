@@ -1,6 +1,6 @@
 package com.example.order_management.domain.product;
 
-import com.example.order_management.business.product.ProductRequest;
+import com.example.order_management.business.product.dto.ProductRequest;
 import org.mapstruct.*;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)

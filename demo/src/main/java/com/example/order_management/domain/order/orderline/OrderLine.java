@@ -1,4 +1,4 @@
-package com.example.order_management.domain;
+package com.example.order_management.domain.order.orderline;
 
 import com.example.order_management.domain.product.Product;
 import jakarta.persistence.*;

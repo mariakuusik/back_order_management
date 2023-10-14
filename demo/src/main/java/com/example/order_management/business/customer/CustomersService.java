@@ -1,5 +1,6 @@
 package com.example.order_management.business.customer;
 
+import com.example.order_management.business.customer.dto.CustomerRequest;
 import com.example.order_management.domain.customer.Customer;
 import com.example.order_management.domain.customer.CustomerMapper;
 import com.example.order_management.domain.customer.CustomerService;
@@ -8,10 +9,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CustomersService {
-
     @Resource
     private CustomerService customerService;
-
     @Resource
     private CustomerMapper customerMapper;
 
